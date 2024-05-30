@@ -83,5 +83,5 @@ plt.plot(x,w_1_ex*x + w_0_ex, "r")
 plt.title("using gradient decent")
 plt.text(5, 5, 'w : {}'.format(w_save[-1]), fontsize = 10)
 
-plt.savefig('linear_regression.png', bbox_inches='tight')
+plt.savefig('section_1/linear_regression.png', bbox_inches='tight')
 plt.show()
