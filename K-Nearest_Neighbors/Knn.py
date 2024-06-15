@@ -17,26 +17,60 @@ def load_Data_Iris():
 
     return X_train, X_test, y_train, y_test 
 
+# naively compute square distance between two vector
+def dist_pc_fast(z, X):
+    X2 = np.sum(X*X, 1) # 1 same sa axis = 1
+    return X2 - 2*X.dot(z)
 
-# calculating the distance each data point
-def distanceX(X_train):
-    distance = np.zeros((X_train.shape[0],1))
 
-    for i in range((X_train.shape[0])):
-        distance[i] = np.linalg.norm(X_train[i])
+X_train, X_test, y_train, y_test = load_Data_Iris()
+
+
+
+# a = dist_pc_fast(X_test[0], X_train)
+
+
+# min = 1000000
+# index = -1
+# for i in range(len(a)):
+#     if (a[i] < min):
+#         min = a[i]
+#         index = i
+
+
+
+# print(y_test[0])
+# print(y_train[index])
+
+# predict  value target
+def predict(X_train, y_train, z, y):
+
+    # distance each data point in data_test with each data point in data train 
+    dist_all = list(dist_pc_fast(z, X_train))
+
+    # get a index in smallest value  
+    index_min = dist_all.index(min(dist_all))
+
+    real_Label = y_train[index_min]
     
-    return distance
+    predict_label = y
+
+    return real_Label, predict_label
+
+predict(X_train, y_train, X_test[0], y_test[0])
+
+def KNN_train(X_train, y_train, X_test, y_test):
+    
+    precent = 0
+    for i in range(len(X_test)):
+        real, pre = predict(X_train, y_train, X_test[i], y_test[i])
+        if (real == pre):
+            precent += 1
+
+    print("total predict: ", len(X_test))
+    print("total right predict: ", precent)
+    print("Percent right predict: ", precent/len(X_test)*100 ," %")
+    return precent
 
 
-
-# Call load_Data_Iris
-X_train, X_test, y_train, y_test  = load_Data_Iris()
-
-distanceOfXTrain = distanceX(X_train)
-distanceOfXtest  = distanceX (X_test)
-
-
-
-
-b = distanceOfXtest[0]
-print(y_test[0])
+KNN_train(X_train, y_train, X_test, y_test)
