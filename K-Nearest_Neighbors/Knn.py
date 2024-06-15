@@ -13,7 +13,7 @@ def load_Data_Iris():
     iris_X = iris.data
     iris_y = iris.target
     # split dataset to 2 part: train(80%), test(20)
-    X_train, X_test, y_train, y_test = train_test_split(iris_X, iris_y, random_state=1, test_size=0.2, shuffle=True)
+    X_train, X_test, y_train, y_test = train_test_split(iris_X, iris_y, random_state=1, test_size=0.5, shuffle=True)
 
     return X_train, X_test, y_train, y_test 
 
@@ -22,27 +22,11 @@ def dist_pc_fast(z, X):
     X2 = np.sum(X*X, 1) # 1 same sa axis = 1
     return X2 - 2*X.dot(z)
 
-
+# Load data
 X_train, X_test, y_train, y_test = load_Data_Iris()
 
 
-
-# a = dist_pc_fast(X_test[0], X_train)
-
-
-# min = 1000000
-# index = -1
-# for i in range(len(a)):
-#     if (a[i] < min):
-#         min = a[i]
-#         index = i
-
-
-
-# print(y_test[0])
-# print(y_train[index])
-
-# predict  value target
+# predict value target
 def predict(X_train, y_train, z, y):
 
     # distance each data point in data_test with each data point in data train 
@@ -73,4 +57,4 @@ def KNN_train(X_train, y_train, X_test, y_test):
     return precent
 
 
-KNN_train(X_train, y_train, X_test, y_test)
+my_percent = KNN_train(X_train, y_train, X_test, y_test)
